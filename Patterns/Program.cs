@@ -5,6 +5,7 @@ using Patterns.FamilyTax;
 using Patterns.FamilyTax.Calculator;
 using Patterns.FamilyTax.Entity;
 using Patterns.FamilyTax.Hub;
+using Patterns.Proxy;
 using Patterns.Strategy;
 using System;
 using System.Collections;
@@ -98,6 +99,19 @@ namespace Patterns
                 Value = 150,
             });
             Console.WriteLine(result.Message);
+
+
+            Console.WriteLine("----------------------Chain Of Responsibility Pattern-----------------");
+            Image image = new ProxyImage("CodeGate.jpg");
+
+            //image will be loaded from disk
+            image.display();
+            Console.WriteLine("");
+
+            //image will not be loaded from disk
+            image.display();
+
+
             Console.ReadKey();
         }
 
