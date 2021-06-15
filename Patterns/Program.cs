@@ -1,5 +1,6 @@
 ﻿using Patterns.ChainOfResponsibility;
 using Patterns.Decorator;
+using Patterns.Facade;
 using Patterns.FactoryPattern.VehicleFactory;
 using Patterns.FamilyTax;
 using Patterns.FamilyTax.Calculator;
@@ -9,12 +10,17 @@ using Patterns.Proxy;
 using Patterns.Strategy;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using SortedList = Patterns.Strategy.SortedList;
 
 namespace Patterns
 {
     class Program
     {
+        /// <summary>
+        /// Patterns
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Console.WriteLine("----------------------Factory Pattern-----------------");
@@ -99,18 +105,22 @@ namespace Patterns
                 Value = 150,
             });
             Console.WriteLine(result.Message);
-
-
             Console.WriteLine("----------------------Chain Of Responsibility Pattern-----------------");
-            Image image = new ProxyImage("CodeGate.jpg");
 
+            Image image = new ProxyImage("CodeGate.jpg");
             //image will be loaded from disk
             image.display();
             Console.WriteLine("");
-
             //image will not be loaded from disk
             image.display();
 
+            Console.WriteLine("----------------------Facade Pattern-----------------");
+            var restaurant = new OnlineRestaurant();
+            var shippingService = new ShippingService();
+            var facade = new FacadePattern(restaurant, shippingService);
+            var chickenOrder = new Order() { DishName = "Chicken with rice", DishPrice = 20.0, User = "User1", ShippingAddress = "Random street 123" };
+            var sushiOrder = new Order() { DishName = "Sushi", DishPrice = 52.0, User = "User2", ShippingAddress = "More random street 321" };
+            facade.OrderFood(new List<Order>() { chickenOrder, sushiOrder });
 
             Console.ReadKey();
         }
